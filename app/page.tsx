@@ -1,6 +1,6 @@
 
 export default function Home() {
   return (
-    <p>Hello world, lets build our SaaS</p>
+    <p className="text-6xl text-green-500">Hello world, Otofast SaaS</p>
   )
 }
