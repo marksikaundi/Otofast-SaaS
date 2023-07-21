@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const DashboadPage = () => {
   return (
-    <Button variant="destructive" >Click me</Button>
+    <p>Dashboard page (Protected)</p>
   )
 }
 
