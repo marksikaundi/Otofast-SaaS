@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionRequestMessage } from "openai";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -21,7 +20,7 @@ import { BotAvatar } from "@/components/bot-avatar";
 
 const ImagePage = () => {
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [images, setImages] = useState<string[]>([])
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,17 +32,7 @@ const ImagePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
-        role: "user",
-        content: values.prompt,
-      };
-      const newMessages = [...messages, userMessage];
-
-      const response = await axios.post("/api/image", {
-        messages: newMessages,
-      });
-      setMessages((current) => [...current, userMessage, response.data]);
-
+      const response = await axios.post("/api/image");
       form.reset();
     } catch (error: any) {
       //  TODO Open Pro Modal
@@ -57,10 +46,10 @@ const ImagePage = () => {
     <div>
       <Heading
         title="Image Generation"
-        description="Generate Images using descriptive text"
+        description="Turn your prompt into an Image"
         icon={Image}
-        iconColor="text-green-700"
-        bgColor="bg-green-700/10"
+        iconColor="text-pink-700"
+        bgColor="bg-pink-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -112,24 +101,11 @@ const ImagePage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
+          {images.length === 0 && !isLoading && (
+            <Empty label="No images genn\erated" />
           )}
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.content}
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user"
-                    ? "bg-white border border-black/10"
-                    : "bg-muted"
-                )}
-              >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
-              </div>
-            ))}
+          <div>
+            Images will be rendered here
           </div>
         </div>
       </div>
