@@ -24,23 +24,6 @@ Features:
 
 ### Prerequisites
 
-**Node version 18.x.x**
-
-### Cloning the repository
-
-```shell
-git clone https://github.com/AntonioErdeljac/next13-ai-saas.git
-```
-
-### Install packages
-
-```shell
-npm i
-```
-
-### Setup .env file
-
-
 ```js
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
